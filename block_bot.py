@@ -52,23 +52,20 @@ async def main():
         
         
         # Get Data of last 3 blocks every few seconds
-        # latest_5_blocks = kp.get_blocks(content_range="0-2")
-        latest_5_blocks = get_block_list(content_range="0-2")
-        latest_5_blocks = pd.DataFrame(latest_5_blocks)
+        # latest_3_blocks = kp.get_blocks(content_range="0-2")
+        latest_3_blocks = get_block_list(content_range="0-2")
+        latest_3_blocks = pd.DataFrame(latest_3_blocks)
 
         
-        if type(latest_5_blocks) == type(pd.DataFrame()):
+        if type(latest_3_blocks) == type(pd.DataFrame()):
                 
-                if len(latest_5_blocks) > 0:
+                if len(latest_3_blocks) > 0:
                         print("Latest Block Hash: {}\nBlock Height No: {}\nMade By Pool: {}"
-                              .format(latest_5_blocks.hash[0],latest_5_blocks.block_height[0],latest_5_blocks.pool[0]))
+                              .format(latest_3_blocks.hash[0],latest_3_blocks.block_height[0],latest_3_blocks.pool[0]))
                 
-                        for block in range(len(latest_5_blocks)):
-                                if latest_5_blocks.pool[block] == POOL:
+                        for block in range(len(latest_3_blocks)):
+                                if latest_3_blocks.pool[block] == POOL:
                                         print("AHOY!")
-                                        
-                                        # ticker = armada_pools_df[armada_pools_df['POOL_bech32'] == latest_5_blocks.pool[block]].ticker.values[0]
-                                        # POOL_hex = armada_pools_df[armada_pools_df['POOL_bech32'] == latest_5_blocks.pool[block]].POOL_hex.values[0] 
                                         
                                         message="""
                                         **Ahoy! More Plunder** 🏴‍☠️
@@ -80,17 +77,17 @@ async def main():
                                         \n⚙️ **Total Blocks:** ***{}***
                                         \n🧱**Info:** https://cexplorer.io/block/{}
                                         """.format(ticker,
-                                                   latest_5_blocks.pool[block],
-                                                   latest_5_blocks.hash[block],
-                                                   latest_5_blocks.epoch_no[block],
-                                                   latest_5_blocks.block_height[block],
-                                                   round(latest_5_blocks.block_size[block].astype(int)/1000, 2),
-                                                   latest_5_blocks.tx_count[block],
+                                                   latest_3_blocks.pool[block],
+                                                   latest_3_blocks.hash[block],
+                                                   latest_3_blocks.epoch_no[block],
+                                                   latest_3_blocks.block_height[block],
+                                                   round(latest_3_blocks.block_size[block].astype(int)/1000, 2),
+                                                   latest_3_blocks.tx_count[block],
                                                    pool_info[0]['block_count'],
-                                                   latest_5_blocks.hash[block],
+                                                   latest_3_blocks.hash[block],
                                                    )
                                         for i in contents:
-                                                if i.__contains__(latest_5_blocks.hash[block]) == False:
+                                                if i.__contains__(latest_3_blocks.hash[block]) == False:
                                                         await channel.send(message)
                                                         print("Discord Message Sent")
                                                         
